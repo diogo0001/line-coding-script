@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.ticker import (AutoMinorLocator, MultipleLocator)
 
 
 def bitsGen(size):
@@ -7,38 +8,48 @@ def bitsGen(size):
     return bits
 
 
-def plotSignal(x, y,title):
-    fig, ax = plt.subplots()
-    ax.plot(x,y)
-    ax.set(xlabel='Time (s)', ylabel='Voltage (V)', title=title)
-    ax.grid()
-    fig.savefig(title+".png")
-    plt.show()
+def plotSignal(x,y,bits,title):
+    fig = plt.figure()
+    plt.subplot()
+    plt.title(title+" "+str(bits))
+    plt.plot(x, y)
+    plt.xlabel('Time (ms)')
+    plt.ylabel('Voltage (V)')
+    plt.grid(b=True, which='major', color='#444444', linestyle='-',alpha = 0.3)
+    plt.minorticks_on()
+    plt.grid(b=True, which='minor', color='#444444', linestyle='-',alpha = 0.2)
+    fig.savefig("./images/"+title+".png")
+    # plt.show()
     return 0
 
 
 def pulseWaveform(step, bits, Ts, pulses, plot,title):
     size = len(pulses)
     sizeBits = len(bits)
-    t = np.arange(0, size, step)
+
+    if sizeBits*2 == size: 
+        t = np.arange(0, size/2, step)
+    else:
+        t = np.arange(0, size, step)
+
     size_t = len(t)
-    xt = np.zeros(size_t)
+    lc = np.zeros(size_t)
     symbolIndex = 1
     # print(pulses)
 
     for j in range(0, size_t):
         if t[j] >= 0 and t[j] < symbolIndex:
-            xt[j] = pulses[symbolIndex-1]
+            lc[j] = pulses[symbolIndex-1]
         else:
-            xt[j] = pulses[symbolIndex]
+            lc[j] = pulses[symbolIndex]
             if symbolIndex < size-1:
                 symbolIndex = symbolIndex+Ts
                 
     # plot = False
-    if plot == True and size <=32:          # plot if less than 32 bits
-        plotSignal(t, xt,title)
+    if plot == True and sizeBits <=32:          # plot if less or 32 bits
+        plotSignal(t, lc, bits, title)
 
-    return xt
+    return lc
 
 ############################ Line codings #############################
 
@@ -53,8 +64,8 @@ def unipolarNRZ(bits, step, Ts, plot):
         else:
             pulses[i] = 0
 
-    xt = pulseWaveform(step, bits, Ts, pulses, plot,"Unipolar NRZ")
-    return xt
+    lc = pulseWaveform(step, bits, Ts, pulses, plot,"Unipolar NRZ")
+    return lc
 
 
 def unipolarRZ(bits, step, Ts, plot):
@@ -72,8 +83,8 @@ def unipolarRZ(bits, step, Ts, plot):
             pulses[j+1] = 0
         j = j + 2
 
-    xt = pulseWaveform(step, bits, Ts, pulses, plot,"Unipolar RZ")
-    return xt
+    lc = pulseWaveform(step, bits, Ts, pulses, plot,"Unipolar RZ")
+    return lc
 
 
 def bipolarNRZ(bits, step, Ts, plot):
@@ -86,8 +97,8 @@ def bipolarNRZ(bits, step, Ts, plot):
         else:
             pulses[i] = -amp
 
-    xt = pulseWaveform(step, bits, Ts, pulses, plot,"Bipolar NRZ")
-    return xt
+    lc = pulseWaveform(step, bits, Ts, pulses, plot,"Bipolar NRZ")
+    return lc
 
 
 def bipolarRZ(bits, step, Ts, plot):
@@ -105,8 +116,8 @@ def bipolarRZ(bits, step, Ts, plot):
             pulses[j+1] = 0
         j = j + 2
 
-    xt = pulseWaveform(step, bits, Ts, pulses, plot,"Bipolar NRZ")
-    return xt
+    lc = pulseWaveform(step, bits, Ts, pulses, plot,"Bipolar RZ")
+    return lc
 
 
 def polarQuatNRZ(bits, step, Ts, plot):
@@ -127,8 +138,8 @@ def polarQuatNRZ(bits, step, Ts, plot):
                 pulses[j] = 3*amp/2
         j = j + 1
         
-    xt = pulseWaveform(step, bits, Ts, pulses, plot,"Polar Quatern NRZ")
-    return xt 
+    lc = pulseWaveform(step, bits, Ts, pulses, plot,"Polar Quatern NRZ")
+    return lc 
 
 
 def NRZSpace(bits, step, Ts, plot):
@@ -150,8 +161,8 @@ def NRZSpace(bits, step, Ts, plot):
         else:
             pulses[i] = 0
 
-    xt = pulseWaveform(step, bits, Ts, pulses, plot,"NRZ Space")
-    return xt 
+    lc = pulseWaveform(step, bits, Ts, pulses, plot,"NRZ Space")
+    return lc 
 
 
 def manchester(bits, step, Ts, plot):
@@ -171,8 +182,8 @@ def manchester(bits, step, Ts, plot):
         j = j + 2
 
 
-    xt = pulseWaveform(step, bits, Ts, pulses, plot,"Manchester")
-    return xt 
+    lc = pulseWaveform(step, bits, Ts, pulses, plot,"Manchester")
+    return lc 
 
 
 def hdb3(bits, step, Ts, plot):
@@ -212,8 +223,8 @@ def hdb3(bits, step, Ts, plot):
         else:
             zeroCount = 0
 
-    xt = pulseWaveform(step, bits, Ts, pulses, plot,"HDB3")
-    return xt            
+    lc = pulseWaveform(step, bits, Ts, pulses, plot,"HDB3")
+    return lc            
 
 
 def twob1q(bits, step, Ts, plot):  
@@ -234,5 +245,5 @@ def twob1q(bits, step, Ts, plot):
                 pulses[j] = amp
         j = j + 1
         
-    xt = pulseWaveform(step, bits, Ts, pulses, plot,"2B1Q")
-    return xt 
+    lc = pulseWaveform(step, bits, Ts, pulses, plot,"2B1Q")
+    return lc 
