@@ -11,7 +11,7 @@ def bitsGen(size):
 def plotSignal(x,y,bits,title):
     fig = plt.figure()
     plt.subplot()
-    plt.title(title+" "+str(bits))
+    plt.title(title+" - "+str(bits))
     plt.plot(x, y)
     plt.xlabel('Time (ms)')
     plt.ylabel('Voltage (V)')
@@ -28,7 +28,7 @@ def pulseWaveform(step, bits, Ts, pulses, plot,title):
     sizeBits = len(bits)
 
     if sizeBits*2 == size: 
-        t = np.arange(0, size/2, step)
+        t = np.arange(0, size, step/2)
     else:
         t = np.arange(0, size, step)
 
