@@ -1,37 +1,80 @@
 import lineCodeFunctions as lc
+import json
+import numpy as np
 
-vectorSize = 16  # must be pair
+vectorSize = 32  # must be pair
 step = 0.01
+n_iterations = 10
 
-bits = lc.bitsGen(vectorSize)
-bits = [1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1]
+fileName = "Results.json"
+saveFile = open("Results.txt","w")
 
-print(bits)
 
-code= lc.unipolarNRZ(bits, step, True) # True to plot graphics
-print("unipolarNRZ",code)
 
-code = lc.unipolarRZ(bits, step, True) 
-print("unipolarRZ",code)
+def rateCalculator(n_bits,n_iterations,step,f):
+    results = np.zeros(shape=(9,n_iterations))
 
-code = lc.bipolarNRZ(bits, step, True) 
-print("bipolarNRZ",code)
+    for i in range(0,n_iterations):
+        bits = lc.bitsGen(n_bits)
+        # x, unipolarNRZ= lc.unipolarNRZ(bits, step, True,True) 
+        # x, unipolarRZ = lc.unipolarRZ(bits, step, True,True) 
+        # x, bipolarNRZ = lc.bipolarNRZ(bits, step, True,True) 
+        # x, bipolarRZ = lc.bipolarRZ(bits, step, True,True) 
+        # x, NRZSpace = lc.NRZSpace(bits, step, True,True) 
+        # x, manchester = lc.manchester(bits, step, True,True) 
+        # x, hdb3 = lc.hdb3(bits, step,  True,True) 
+        # x, polarQuatNRZ = lc.polarQuatNRZ(bits, step, True,True) 
+        # x, twob1q = lc.twob1q(bits, step, True,True)  
+        # results.append( [unipolarNRZ, unipolarRZ, bipolarNRZ, bipolarRZ, NRZSpace, manchester, hdb3, polarQuatNRZ, twob1q])
 
-code = lc.bipolarRZ(bits, step, True) 
-print("bipolarRZ",code)
+        results[0][i],x = lc.unipolarNRZ(bits, step, True,True) 
+        results[1][i],x = lc.unipolarRZ(bits, step, True,True) 
+        results[2][i],x = lc.bipolarNRZ(bits, step, True,True) 
+        results[3][i],x = lc.bipolarRZ(bits, step, True,True) 
+        results[4][i],x = lc.NRZSpace(bits, step, True,True) 
+        results[5][i],x = lc.manchester(bits, step, True,True) 
+        results[6][i],x = lc.hdb3(bits, step, True,True) 
+        results[7][i],x = lc.polarQuatNRZ(bits, step, True,True) 
+        results[8][i],x = lc.twob1q(bits, step, True,True)  
 
-code = lc.NRZSpace(bits, step, True) 
-print("NRZSpace",code)
+        print(results)
 
-code = lc.manchester(bits, step, True) 
-print("manchester",code)
+    # data = {
+    #     str(n_bits)+"_bits":{
+    #         "unipolarNRZ":results[0],
+    #         "unipolarRZ":results[1],
+    #         "bipolarNRZ":results[2],
+    #         "bipolarRZ":results[3],
+    #         "NRZSpace":results[4],
+    #         "manchester":results[5],
+    #         "hdb3":results[6],
+    #         "polarQuatNRZ":results[7],
+    #         "twob1q":results[8]
+    #     }
+    # }
+    # with open(fileName, 'w') as f:
+    #     json.dump(data, f)
+    return results
 
-code = lc.hdb3(bits, step,  True) 
-print("hdb3",code)
+############### Calculations ###################
 
-code = lc.polarQuatNRZ(bits, step, True) 
-print("polarQuatNRZ",code)
+vectorSize = 32
+result = rateCalculator(vectorSize,n_iterations,step,saveFile)
+saveFile.write("Results for "+str(vectorSize)+" bits:\n\n")
+saveFile.write(str(result))
 
-code = lc.twob1q(bits, step, True) 
-print("twob1q",code)
+vectorSize = 1024
+result = rateCalculator(vectorSize,n_iterations,step,saveFile)
+saveFile.write("\n\n\nResults for "+str(vectorSize)+" bits:\n\n")
+saveFile.write(str(result))
 
+
+vectorSize = 8192
+result = rateCalculator(vectorSize,n_iterations,step,saveFile)
+saveFile.write("\n\n\nResults for "+str(vectorSize)+" bits:\n\n")
+saveFile.write(str(result))
+
+vectorSize = 16384
+result = rateCalculator(vectorSize,n_iterations,step,saveFile)
+saveFile.write("\n\n\nResults for "+str(vectorSize)+" bits:\n\n")
+saveFile.write(str(result))
