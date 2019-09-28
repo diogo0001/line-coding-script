@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+####################### Basic Functions #######################
 
 def bitsGen(size):
     bits = np.random.randint(0, 2, size)
@@ -14,15 +15,17 @@ def plotSignal(x,y,bits,title):
     plt.plot(x, y)
     plt.xlabel('Time (ms)')
     plt.ylabel('Voltage (V)')
-    plt.grid(b=True, which='major', color='#444444', linestyle='-',alpha = 0.3)
+    plt.grid(b=True, which='major', color='#444444', 
+                        linestyle='-',alpha = 0.3)
     plt.minorticks_on()
-    plt.grid(b=True, which='minor', color='#444444', linestyle='-',alpha = 0.2)
+    plt.grid(b=True, which='minor', color='#444444', 
+                        linestyle='-',alpha = 0.2)
     fig.savefig("./images/"+title+".png")
     # plt.show()
     return 0
 
 
-def pulseWaveform(step, bits, pulses, plot,title):
+def pulseWaveform(step, bits, pulses,title):
     size = len(pulses)
     sizeBits = len(bits)
     t = np.arange(0, size, step)
@@ -44,8 +47,18 @@ def pulseWaveform(step, bits, pulses, plot,title):
 
     return lc
 
+###################### Rate Calculations #######################
 
-def rateCalc(pulses,bits,step,Ts):
+def rateBits(Ts,M):
+    if M <= 2:                          # Onde bit for symbol 
+        rate = 1/Ts
+    else:           
+        nBits = np.log2(M)              # N bits for symbol
+        rate = (1/Ts)*nBits
+    return rate
+
+
+def rateMean(pulses,bits,step,M):       # Modify to future tasks
     size = len(pulses)
     count = 0
 
@@ -57,31 +70,71 @@ def rateCalc(pulses,bits,step,Ts):
     return rate
 
 
-############################ Line codings #############################
+###################### Script Functions ######################## 
 
-def unipolarNRZ(bits, step, plot,calc):
-    Ts = 1
+def bitsRate(n_bits,step,runBitsRate):
+    results = np.zeros(shape=(9))
+    bits = bitsGen(n_bits)
+    m,results[0],y = unipolarNRZ(bits, step,False,runBitsRate) 
+    m,results[1],y = unipolarRZ(bits, step, False,runBitsRate) 
+    m,results[2],y = bipolarNRZ(bits, step, False,runBitsRate) 
+    m,results[3],y = bipolarRZ(bits, step, False,runBitsRate) 
+    m,results[4],y = NRZSpace(bits, step, False,runBitsRate) 
+    m,results[5],y = manchester(bits, step, False,runBitsRate) 
+    m,results[6],y = hdb3(bits, step, False,runBitsRate) 
+    m,results[7],y = polarQuatNRZ(bits, step, False,runBitsRate) 
+    m,results[8],y = twob1q(bits, step, False,runBitsRate)  
+    return results
+
+def rateCalculator(n_bits,n_iterations,step,runMean):
+    results = np.zeros(shape=(9,n_iterations))
+
+    for i in range(0,n_iterations):
+        bits = bitsGen(n_bits)
+        results[0][i],x,y = unipolarNRZ(bits, step,runMean,False) 
+        results[1][i],x,y = unipolarRZ(bits, step, runMean,False) 
+        results[2][i],x,y = bipolarNRZ(bits, step, runMean,False) 
+        results[3][i],x,y = bipolarRZ(bits, step, runMean,False) 
+        results[4][i],x,y = NRZSpace(bits, step, runMean,False) 
+        results[5][i],x,y = manchester(bits, step, runMean,False) 
+        results[6][i],x,y = hdb3(bits, step, runMean,False) 
+        results[7][i],x,y = polarQuatNRZ(bits, step, runMean,False) 
+        results[8][i],x,y = twob1q(bits, step, runMean,False)  
+        # print(results)
+    return results
+
+
+############################ Line Codes #############################
+
+def unipolarNRZ(bits, step,runMean,runBitRate):
+    M = 2
     size = len(bits)
     pulses = np.zeros(size)
     amp = 5
-    rate = 0
+    meanRate = 0
+    bitRate = 0
 
     for i in range(0, size):
         if bits[i] == 1:
             pulses[i] = amp
 
-    if calc == True:
-        rate = rateCalc(pulses,bits,step,Ts)
+    if runMean == True:
+        meanRate = rateMean(pulses,bits,step,M)
 
-    lc = pulseWaveform(step, bits, pulses, plot,"Unipolar NRZ")
-    return rate, lc
+    if runBitRate == True:
+        bitRate = rateBits(step,M)
 
-def unipolarRZ(bits, step, plot,calc):
-    Ts = 0.5
+    lc = pulseWaveform(step, bits, pulses,"Unipolar NRZ")
+    return meanRate, bitRate, lc
+
+def unipolarRZ(bits, step,runMean,runBitRate):
+    M = 2
     size = len(bits)
     pulses = np.zeros(size*2)
     amp = 5
     j = 0
+    meanRate = 0
+    bitRate = 0
 
     for i in range(0, size):
         if bits[i] == 1:
@@ -90,38 +143,45 @@ def unipolarRZ(bits, step, plot,calc):
         
         j = j + 2
 
-    if calc == True:
-        rate = rateCalc(pulses,bits,step,Ts)
+    if runMean == True:
+        meanRate = rateMean(pulses,bits,step,M)
 
-    lc = pulseWaveform(step, bits, pulses, plot,"Unipolar RZ")
-    return rate, lc
+    if runBitRate == True:
+        bitRate = rateBits(step,M)
 
-def bipolarNRZ(bits, step, plot,calc):
-    Ts = 1
+    lc = pulseWaveform(step, bits, pulses, "Unipolar RZ")
+    return meanRate, bitRate, lc
+
+def bipolarNRZ(bits, step, runMean,runBitRate):
+    M = 2
     size = len(bits)
     pulses = np.zeros(size)
     amp = 5
-    rate = 0
-
+    meanRate = 0
+    bitRate = 0
     for i in range(0, size):
         if bits[i] == 1:
             pulses[i] = amp
         else:
             pulses[i] = -amp
 
-    if calc == True:
-       rate = rateCalc(pulses,bits,step,Ts)
+    if runMean == True:
+        meanRate = rateMean(pulses,bits,step,M)
 
-    lc = pulseWaveform(step, bits, pulses, plot,"Bipolar NRZ")
-    return rate, lc
+    if runBitRate == True:
+        bitRate = rateBits(step,M)
 
-def bipolarRZ(bits, step, plot,calc):
-    Ts = 0.5
+    lc = pulseWaveform(step, bits, pulses, "Bipolar NRZ")
+    return meanRate, bitRate, lc
+
+def bipolarRZ(bits, step, runMean,runBitRate):
+    M = 2
     size = len(bits)
     pulses = np.zeros(size*2)
     amp = 5
     j = 0
-    rate = 0
+    meanRate = 0
+    bitRate = 0
 
     for i in range(0, size):
         if bits[i] == 1:
@@ -132,19 +192,23 @@ def bipolarRZ(bits, step, plot,calc):
             pulses[j+1] = 0
         j = j + 2
 
-    if calc == True:
-        rate = rateCalc(pulses,bits,step,Ts)
+    if runMean == True:
+        meanRate = rateMean(pulses,bits,step,M)
 
-    lc = pulseWaveform(step, bits, pulses, plot,"Bipolar RZ")
-    return rate, lc
+    if runBitRate == True:
+        bitRate = rateBits(step,M)
 
-def polarQuatNRZ(bits, step, plot,calc):
-    Ts = 2
+    lc = pulseWaveform(step, bits, pulses, "Bipolar RZ")
+    return meanRate, bitRate, lc
+
+def polarQuatNRZ(bits, step, runMean,runBitRate):
+    M = 4
     size = int(len(bits)/2)
     pulses = np.zeros(size)
     amp = 3.5
     j = 0
-    rate = 0
+    meanRate = 0
+    bitRate = 0
 
     for i in range(0, len(bits),2):
         if i%2 == 0:
@@ -158,18 +222,22 @@ def polarQuatNRZ(bits, step, plot,calc):
                 pulses[j] = 3*amp/2
         j = j + 1
         
-    if calc == True:
-        rate = rateCalc(pulses,bits,step,Ts)
+    if runMean == True:
+        meanRate = rateMean(pulses,bits,step,M)
 
-    lc = pulseWaveform(step, bits, pulses, plot,"Polar Quatern NRZ")
-    return rate, lc
+    if runBitRate == True:
+        bitRate = rateBits(step,M)
 
-def NRZSpace(bits, step, plot,calc):
-    Ts = 1
+    lc = pulseWaveform(step, bits, pulses, "Polar Quatern NRZ")
+    return meanRate, bitRate, lc
+
+def NRZSpace(bits, step, runMean,runBitRate):
+    M = 2
     size = len(bits)
     pulses = np.zeros(size)
     amp = 5
-    rate = 0
+    meanRate = 0
+    bitRate = 0
 
     for i in range(0, size-1):
         if  bits[i] != bits[i+1] :
@@ -183,19 +251,23 @@ def NRZSpace(bits, step, plot,calc):
         if pulses[i] == 1:
             pulses[i] = amp
 
-    if calc == True:
-        rate = rateCalc(pulses,bits,step,Ts)
+    if runMean == True:
+        meanRate = rateMean(pulses,bits,step,M)
 
-    lc = pulseWaveform(step, bits, pulses, plot,"NRZ Space")
-    return rate, lc
+    if runBitRate == True:
+        bitRate = rateBits(step,M)
 
-def manchester(bits, step, plot,calc):
-    Ts = 0.5
+    lc = pulseWaveform(step, bits, pulses, "NRZ Space")
+    return meanRate, bitRate, lc
+
+def manchester(bits, step, runMean,runBitRate):
+    M = 2
     size = len(bits)
     pulses = np.zeros(size*2)
     amp = 5
     j = 0
-    rate = 0
+    meanRate = 0
+    bitRate = 0
 
     for i in range(0,size):
 
@@ -207,14 +279,17 @@ def manchester(bits, step, plot,calc):
             pulses[j+1] = amp
         j = j + 2
 
-    if calc == True:
-        rate = rateCalc(pulses,bits,step,Ts)
+    if runMean == True:
+        meanRate = rateMean(pulses,bits,step,M)
 
-    lc = pulseWaveform(step, bits, pulses, plot,"Manchester")
-    return rate, lc
+    if runBitRate == True:
+        bitRate = rateBits(step,M)
 
-def hdb3(bits, step, plot,calc):
-    Ts = 1
+    lc = pulseWaveform(step, bits, pulses, "Manchester")
+    return meanRate, bitRate, lc
+
+def hdb3(bits, step, runMean,runBitRate):
+    M = 2
     size = len(bits)
     ami = np.zeros(size)
     V = np.zeros(size)
@@ -223,7 +298,8 @@ def hdb3(bits, step, plot,calc):
     oneFlag = True
     zeroCount = 0
     sign = 0
-    rate = 0
+    meanRate = 0
+    bitRate = 0
 
     for i in range(0, size):            # AMI code for ones
         if bits[i] == 1:
@@ -252,19 +328,23 @@ def hdb3(bits, step, plot,calc):
         else:
             zeroCount = 0
 
-    if calc == True:
-        rate = rateCalc(pulses,bits,step,Ts)
+    if runMean == True:
+        meanRate = rateMean(pulses,bits,step,M)
 
-    lc = pulseWaveform(step, bits, pulses, plot,"HDB3")
-    return rate, lc
+    if runBitRate == True:
+        bitRate = rateBits(step,M)
 
-def twob1q(bits, step, plot,calc):  
-    Ts = 2
+    lc = pulseWaveform(step, bits, pulses, "HDB3")
+    return meanRate, bitRate, lc
+
+def twob1q(bits, step, runMean,runBitRate):  
+    M = 4
     size = int(len(bits)/2)
     pulses = np.zeros(size)
     amp = 2.5
     j = 0
-    rate = 0
+    meanRate = 0
+    bitRate = 0
 
     for i in range(0, len(bits),2):
         if i%2 == 0:
@@ -278,8 +358,11 @@ def twob1q(bits, step, plot,calc):
                 pulses[j] = amp
         j = j + 1
 
-    if calc == True:
-        rate = rateCalc(pulses,bits,step,Ts)    
+    if runMean == True:
+        meanRate = rateMean(pulses,bits,step,M)   
+
+    if runBitRate == True:
+        bitRate = rateBits(step,M)
         
-    lc = pulseWaveform(step, bits, pulses, plot,"2B1Q")
-    return rate, lc
+    lc = pulseWaveform(step, bits, pulses, "2B1Q")
+    return meanRate, bitRate, lc
