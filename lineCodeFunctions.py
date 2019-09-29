@@ -87,25 +87,16 @@ def bitsRate(n_bits,step,runBitsRate):
     m,results[8],y = twob1q(bits, step, False,runBitsRate)  
 
     names = ['uni-NRZ', 'uni-RZ', 'bi-NRZ','bi-RZ', 'NRZ-S', 'manchest','hdb3', 'pol4-NRZ', '2b1q']
-    # fig = plt.figure()
-    # plt.subplot()
-    # plt.bar(names,results)
-    # plt.suptitle('Comparação da taxa de bits')
-
     plt.rcdefaults()
     fig, ax = plt.subplots()
-
     y_pos = np.arange(len(names))
     error = np.random.rand(len(names))
-
     ax.barh(y_pos, results, xerr=error, align='center')
     ax.set_yticks(y_pos)
     ax.set_yticklabels(names)
     ax.invert_yaxis()  # labels read top-to-bottom
     ax.set_xlabel('Taxa de bits')
     ax.set_title('Taxa de bits por codificação com Ts: '+str(step)+'s')
-
-
     fig.savefig("./images/bitsRate.png")
     # plt.show()
 
