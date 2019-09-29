@@ -1,5 +1,3 @@
-# line-coding-script
-
 ## Script para testes de codificações de linha 
 
 ## Dependências
@@ -12,6 +10,8 @@
 ### Comparação da taxa de bits por codificação
 
 ![](https://github.com/diogo0001/line-coding-script/blob/master/images/bitsRate.png)
+
+As codificaçõs Polar-Quaternário-NRZ e 2B1Q apresentam uma maior taxa de transmissão devido ao fato de transmitirem mais níveis de amplitude, e podem transmitir 2 bits por nível de amplitude. 
 
 ### Formas de pulso por codificação
 
