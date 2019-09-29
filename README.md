@@ -9,6 +9,12 @@
   - matplotlib
 
 
+### Comparação da taxa de bits por codificação
+
+![](https://github.com/diogo0001/line-coding-script/blob/master/images/bitsRate.png)
+
+### Formas de pulso por codificação
+
 ![](https://github.com/diogo0001/line-coding-script/blob/master/images/Unipolar%20RZ.png)
 
 ![](https://github.com/diogo0001/line-coding-script/blob/master/images/Unipolar%20NRZ.png)
