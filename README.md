@@ -1,4 +1,7 @@
-## Script para testes de codificações de linha 
+# Script para testes de codificações de linha 
+
+## Autor: Diogo Tavares
+## Github: https://github.com/diogo0001/line-coding-script
 
 ## Dependências
 
