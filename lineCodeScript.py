@@ -1,11 +1,12 @@
 import lineCodeFunctions as lc
 
 # Necessary values to line code functions
-vectorSize = 32  # Must be pair
+vectorSize = 16  # Must be pair
 step = 0.01      # Time for each symbol
 
 # To run the bits rate (vector size can be small, 4 bits)
-runBitsRate = True
+runBitsRate = False
+
 
 
 # To run the mean rate
@@ -13,7 +14,6 @@ runMean = False
 runAll = False
 n_iterations = 10
 saveFile = open("Results_mean.txt","w")
-
 
 ##################### Bits Rate Calculations ####################
 
@@ -43,3 +43,11 @@ if  runMean:
         result = lc.rateCalculator(vectorSize,n_iterations,step,runMean)
         saveFile.write("\n\n\nResults for "+str(vectorSize)+" bits:\n\n")
         saveFile.write(str(result))
+
+#######################
+
+bits = lc.bitsGen(vectorSize)
+
+m,results,sig = manchester(bits, step, True,False) 
+
+

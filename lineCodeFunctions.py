@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import random
 
 ####################### Basic Functions #######################
 
@@ -7,6 +8,11 @@ def bitsGen(size):
     bits = np.random.randint(0, 2, size)
     return bits
 
+
+def noiseGen(pulses,Ts,sample):
+    f = 1/Ts
+    noise = 0.0008*np.asarray(random.sample(range(0,1000),sample))
+    return np.sin(2 * np.pi * f * pulses / Fs)+noise
 
 def plotSignal(x,y,bits,title):
     fig = plt.figure()
@@ -41,7 +47,7 @@ def pulseWaveform(step, bits, pulses,title):
             if symbolIndex < size-1:
                 symbolIndex = symbolIndex+1
                 
-    plot = False
+    plot = True
     if plot == True and sizeBits <=32:        
         plotSignal(t, lc, bits, title)
 
@@ -59,16 +65,11 @@ def rateBits(Ts,M):
     return rate
 
 
-def rateMean(pulses,bits,step,M):       # Modify to future tasks
-    size = len(pulses)
-    count = 0
+def rateWithNoise(pulses,bits,step,M):       # Modify to future tasks
+    sample = 1000
+    sig = noiseGen(pulses,step,sample)
 
-    for i in range(0,size-1):
-        if pulses[i] != pulses[i+1]:
-            count = count + 1
-
-    rate = count*step
-    return rate
+    return sig
 
 
 ###################### Script Functions ######################## 
@@ -135,7 +136,7 @@ def unipolarNRZ(bits, step,runMean,runBitRate):
             pulses[i] = amp
 
     if runMean == True:
-        meanRate = rateMean(pulses,bits,step,M)
+        meanRate = rateWithNoise(pulses,bits,step,M)
 
     if runBitRate == True:
         bitRate = rateBits(step,M)
@@ -160,7 +161,7 @@ def unipolarRZ(bits, step,runMean,runBitRate):
         j = j + 2
 
     if runMean == True:
-        meanRate = rateMean(pulses,bits,step,M)
+        meanRate = rateWithNoise(pulses,bits,step,M)
 
     if runBitRate == True:
         bitRate = rateBits(step,M)
@@ -182,7 +183,7 @@ def bipolarNRZ(bits, step, runMean,runBitRate):
             pulses[i] = -amp
 
     if runMean == True:
-        meanRate = rateMean(pulses,bits,step,M)
+        meanRate = rateWithNoise(pulses,bits,step,M)
 
     if runBitRate == True:
         bitRate = rateBits(step,M)
@@ -209,7 +210,7 @@ def bipolarRZ(bits, step, runMean,runBitRate):
         j = j + 2
 
     if runMean == True:
-        meanRate = rateMean(pulses,bits,step,M)
+        meanRate = rateWithNoise(pulses,bits,step,M)
 
     if runBitRate == True:
         bitRate = rateBits(step,M)
@@ -239,7 +240,7 @@ def polarQuatNRZ(bits, step, runMean,runBitRate):
         j = j + 1
         
     if runMean == True:
-        meanRate = rateMean(pulses,bits,step,M)
+        meanRate = rateWithNoise(pulses,bits,step,M)
 
     if runBitRate == True:
         bitRate = rateBits(step,M)
@@ -268,7 +269,7 @@ def NRZSpace(bits, step, runMean,runBitRate):
             pulses[i] = amp
 
     if runMean == True:
-        meanRate = rateMean(pulses,bits,step,M)
+        meanRate = rateWithNoise(pulses,bits,step,M)
 
     if runBitRate == True:
         bitRate = rateBits(step,M)
@@ -296,7 +297,7 @@ def manchester(bits, step, runMean,runBitRate):
         j = j + 2
 
     if runMean == True:
-        meanRate = rateMean(pulses,bits,step,M)
+        meanRate = rateWithNoise(pulses,bits,step,M)
 
     if runBitRate == True:
         bitRate = rateBits(step,M)
@@ -345,7 +346,7 @@ def hdb3(bits, step, runMean,runBitRate):
             zeroCount = 0
 
     if runMean == True:
-        meanRate = rateMean(pulses,bits,step,M)
+        meanRate = rateWithNoise(pulses,bits,step,M)
 
     if runBitRate == True:
         bitRate = rateBits(step,M)
@@ -375,7 +376,7 @@ def twob1q(bits, step, runMean,runBitRate):
         j = j + 1
 
     if runMean == True:
-        meanRate = rateMean(pulses,bits,step,M)   
+        meanRate = rateWithNoise(pulses,bits,step,M)   
 
     if runBitRate == True:
         bitRate = rateBits(step,M)
