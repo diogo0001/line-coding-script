@@ -50,6 +50,7 @@ Será aplicado ruído e atenuação ao sinal para verificar a taxa de erro de bi
 o SNR de 1 a 45 para a comparação das taxas de erro.
 
 Teste com codificação Manchester com ruído e SNR = 45
+
 ![](https://github.com/diogo0001/line-coding-script/blob/master/images_noise/Manchester_noise.png)
 
 Teste com codificação Manchester com atenuação e ruído  
