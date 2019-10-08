@@ -3,16 +3,18 @@ import matplotlib.pyplot as plt
 import random
 
 ####################### Basic Functions #######################
+random.seed(1)
 
 def bitsGen(size):
     bits = np.random.randint(0, 2, size)
     return bits
 
 
-def noiseGen(pulses,Ts,sample):
-    f = 1/Ts
-    noise = 0.0008*np.asarray(random.sample(range(0,1000),sample))
-    return np.sin(2 * np.pi * f * pulses / Fs)+noise
+def noiseGen(lc,step,coef): 
+    # noise = [random.gauss(0.0, coef) for i in range(len(lc))]
+    noise = np.random.normal(0,coef,len(lc))
+    noise = (lc + noise)
+    return noise
 
 def plotSignal(x,y,bits,title):
     fig = plt.figure()
@@ -30,6 +32,25 @@ def plotSignal(x,y,bits,title):
     # plt.show()
     return 0
 
+def plotNoiseSig(noise,step,title):
+    fig, ax = plt.subplots(constrained_layout=True)
+    ax.plot(noise)
+    ax.set_xlabel('Time (ms)')
+    ax.set_ylabel('Voltage (V)')
+    ax.set_title(title+' signal with noise')
+
+    def forward(noise):
+        return noise*step
+
+    def inverse(noise):
+        return noise*step
+
+    secax = ax.secondary_xaxis('top',functions=(forward, inverse))
+    secax.set_xlabel('Bits')
+    fig.savefig("./images_noise/"+title+"_noise.png")
+    # plt.show() 
+    
+    return 0
 
 def pulseWaveform(step, bits, pulses,title):
     size = len(pulses)
@@ -47,7 +68,7 @@ def pulseWaveform(step, bits, pulses,title):
             if symbolIndex < size-1:
                 symbolIndex = symbolIndex+1
                 
-    plot = True
+    plot = False
     if plot == True and sizeBits <=32:        
         plotSignal(t, lc, bits, title)
 
@@ -61,20 +82,18 @@ def rateBits(Ts,M):
     else:           
         nBits = np.log2(M)              # N bits for symbol
         rate = (1/Ts)*nBits
-
     return rate
 
 
 def rateWithNoise(pulses,bits,step,M):       # Modify to future tasks
     sample = 1000
     sig = noiseGen(pulses,step,sample)
-
     return sig
 
 
 ###################### Script Functions ######################## 
 
-def bitsRate(n_bits,step,runBitsRate):
+def bitsRateScript(n_bits,step,runBitsRate):
     results = np.zeros(shape=(9))
     bits = bitsGen(n_bits)
     m,results[0],y = unipolarNRZ(bits, step,False,runBitsRate) 
@@ -87,23 +106,24 @@ def bitsRate(n_bits,step,runBitsRate):
     m,results[7],y = polarQuatNRZ(bits, step, False,runBitsRate) 
     m,results[8],y = twob1q(bits, step, False,runBitsRate)  
 
-    names = ['uni-NRZ', 'uni-RZ', 'bi-NRZ','bi-RZ', 'NRZ-S', 'manchest','hdb3', 'pol4-NRZ', '2b1q']
-    plt.rcdefaults()
-    fig, ax = plt.subplots()
-    y_pos = np.arange(len(names))
-    error = np.random.rand(len(names))
-    ax.barh(y_pos, results, xerr=error, align='center')
-    ax.set_yticks(y_pos)
-    ax.set_yticklabels(names)
-    ax.invert_yaxis()  # labels read top-to-bottom
-    ax.set_xlabel('Taxa de bits')
-    ax.set_title('Taxa de bits por codificação com Ts: '+str(step)+'s')
-    fig.savefig("./images/bitsRate.png")
-    # plt.show()
-
+    plot = False
+    if plot == True:
+        names = ['uni-NRZ', 'uni-RZ', 'bi-NRZ','bi-RZ', 'NRZ-S', 'manchest','hdb3', 'pol4-NRZ', '2b1q']
+        plt.rcdefaults()
+        fig, ax = plt.subplots()
+        y_pos = np.arange(len(names))
+        error = np.random.rand(len(names))
+        ax.barh(y_pos, results, xerr=error, align='center')
+        ax.set_yticks(y_pos)
+        ax.set_yticklabels(names)
+        ax.invert_yaxis()  # labels read top-to-bottom
+        ax.set_xlabel('Taxa de bits')
+        ax.set_title('Taxa de bits por codificação com Ts: '+str(step)+'s')
+        fig.savefig("./images/bitsRate.png")
+        # plt.show()
     return results
 
-def rateCalculator(n_bits,n_iterations,step,runMean):
+def rateCalculatorScript(n_bits,n_iterations,step,runMean):
     results = np.zeros(shape=(9,n_iterations))
 
     for i in range(0,n_iterations):
@@ -123,7 +143,7 @@ def rateCalculator(n_bits,n_iterations,step,runMean):
 
 ############################ Line Codes #############################
 
-def unipolarNRZ(bits, step,runMean,runBitRate):
+def unipolarNRZ(bits, step,runMean,runBitRate,noise):
     M = 2
     size = len(bits)
     pulses = np.zeros(size)
@@ -144,7 +164,7 @@ def unipolarNRZ(bits, step,runMean,runBitRate):
     lc = pulseWaveform(step, bits, pulses,"Unipolar NRZ")
     return meanRate, bitRate, lc
 
-def unipolarRZ(bits, step,runMean,runBitRate):
+def unipolarRZ(bits, step,runMean,runBitRate,noise):
     M = 2
     size = len(bits)
     pulses = np.zeros(size*2)
@@ -169,7 +189,7 @@ def unipolarRZ(bits, step,runMean,runBitRate):
     lc = pulseWaveform(step, bits, pulses, "Unipolar RZ")
     return meanRate, bitRate, lc
 
-def bipolarNRZ(bits, step, runMean,runBitRate):
+def bipolarNRZ(bits, step, runMean,runBitRate,noise):
     M = 2
     size = len(bits)
     pulses = np.zeros(size)
@@ -191,7 +211,7 @@ def bipolarNRZ(bits, step, runMean,runBitRate):
     lc = pulseWaveform(step, bits, pulses, "Bipolar NRZ")
     return meanRate, bitRate, lc
 
-def bipolarRZ(bits, step, runMean,runBitRate):
+def bipolarRZ(bits, step, runMean,runBitRate,noise):
     M = 2
     size = len(bits)
     pulses = np.zeros(size*2)
@@ -218,7 +238,7 @@ def bipolarRZ(bits, step, runMean,runBitRate):
     lc = pulseWaveform(step, bits, pulses, "Bipolar RZ")
     return meanRate, bitRate, lc
 
-def polarQuatNRZ(bits, step, runMean,runBitRate):
+def polarQuatNRZ(bits, step, runMean,runBitRate,noise):
     M = 4
     size = int(len(bits)/2)
     pulses = np.zeros(size)
@@ -248,7 +268,7 @@ def polarQuatNRZ(bits, step, runMean,runBitRate):
     lc = pulseWaveform(step, bits, pulses, "Polar Quatern NRZ")
     return meanRate, bitRate, lc
 
-def NRZSpace(bits, step, runMean,runBitRate):
+def NRZSpace(bits, step, runMean,runBitRate,noise):
     M = 2
     size = len(bits)
     pulses = np.zeros(size)
@@ -277,7 +297,7 @@ def NRZSpace(bits, step, runMean,runBitRate):
     lc = pulseWaveform(step, bits, pulses, "NRZ Space")
     return meanRate, bitRate, lc
 
-def manchester(bits, step, runMean,runBitRate):
+def manchester(bits, step, runMean,runBitRate,noise):
     M = 2
     size = len(bits)
     pulses = np.zeros(size*2)
@@ -287,7 +307,6 @@ def manchester(bits, step, runMean,runBitRate):
     bitRate = 0
 
     for i in range(0,size):
-
         if bits[i] == 1:
             pulses[j] = amp
             pulses[j+1] = -amp
@@ -302,10 +321,31 @@ def manchester(bits, step, runMean,runBitRate):
     if runBitRate == True:
         bitRate = rateBits(step,M)
 
-    lc = pulseWaveform(step, bits, pulses, "Manchester")
+    title = "Manchester"
+    lc = pulseWaveform(step, bits, pulses,title)
+
+    if noise == True:
+        coef = getSnrNoise(45,lc)
+        noise = noiseGen(lc,step,coef)  
+        plotNoiseSig(noise,step,title)
+        noise = noise/2
+        plotNoiseSig(noise,step,title+"_at")
+      
     return meanRate, bitRate, lc
 
-def hdb3(bits, step, runMean,runBitRate):
+def getSnrNoise(snr,sig):
+    watts = sig**2
+    sigDb = 10 * np.log10(watts)
+
+    sig_avg_watts = np.mean(watts)
+    sig_avg_db = 10 * np.log10(sig_avg_watts)
+
+    noise_avg_db = sig_avg_db - snr
+    noise_avg_watts = 10 ** (noise_avg_db / 20)
+    print(noise_avg_watts)
+    return noise_avg_watts 
+
+def hdb3(bits, step, runMean,runBitRate,noise):
     M = 2
     size = len(bits)
     ami = np.zeros(size)
@@ -354,7 +394,7 @@ def hdb3(bits, step, runMean,runBitRate):
     lc = pulseWaveform(step, bits, pulses, "HDB3")
     return meanRate, bitRate, lc
 
-def twob1q(bits, step, runMean,runBitRate):  
+def twob1q(bits, step, runMean,runBitRate,noise):  
     M = 4
     size = int(len(bits)/2)
     pulses = np.zeros(size)
