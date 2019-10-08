@@ -16,6 +16,9 @@ e detectando a taxa de erro de cada transmissão.
   - Python 3
   - numpy
   - matplotlib
+  
+  Para executar, deve-se chamar as funções no arquivo para o script, que é onde deve ser montada a lógica para os testes.
+ 
 
 
 ### Comparação da taxa de bits por codificação
