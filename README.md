@@ -3,6 +3,14 @@
 ## Autor: Diogo Tavares
 ## Github: https://github.com/diogo0001/line-coding-script
 
+Primeiramente, será feito a implementação das funções e os gráficos das codificações UnipolarRZ, UnipolarNRZ,
+BipolarRZ, BipolarNRZ, PolarQuaternárioNRZ, NRZ-S, Manchester, 2BQ1,HDB3. Será comparada a taxa de transmissão 
+de bits em de cada uma.
+
+Posteriormente, será adicionado ruído ao sinal (variando o SNR de 1 a 45) e atenuação, para simular um ambiente real. 
+Será feita a decodificação do sinal, diretamente e utilizando um filtro PB, e comparando o sinal obtido com o enviado,
+e detectando a taxa de erro de cada transmissão.
+
 ## Dependências
 
   - Python 3
