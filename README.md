@@ -17,7 +17,8 @@ e detectando a taxa de erro de cada transmissão.
   - numpy
   - matplotlib
   
-  Para executar, deve-se chamar as funções no arquivo para o script, que é onde deve ser montada a lógica para os testes.
+  Para executar, deve-se chamar as funções no arquivo lineCodeScript, que é onde deve ser montada a lógica para os testes.
+  O Arquivo lineCodeFunctions contém as funções independentes, e funções integradas já para testes.
  
 
 
