@@ -1,7 +1,7 @@
 import lineCodeFunctions as lc
 
-vectorSize = 1024  # Must be pair
-step = 0.01        # Time for each symbol
+vectorSize = 1000 # Must be pair
+step = 0.02        # Time for each symbol
 
 n_iterations = 1
 result = lc.rateErrorCalculatorScript(vectorSize,n_iterations,step)

@@ -1,4 +1,4 @@
-Results for 8000 bits:
+Results for 1000 bits:
 
 [[0.]
  [0.]

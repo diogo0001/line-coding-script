@@ -119,7 +119,13 @@ def rateError(y,y_noise,bits):
 
     dif = z-zn
     rate = list(set(dif) - set(zero))
-    print(len(rate))
+    unique, counts = np.unique(dif, return_counts=True)
+    count = np.asarray(( counts)).T
+    count = count[1]
+    print(size)
+    print (count)
+    rate = count/size
+    print(rate)
     return rate
         
 ###################### Script Functions ######################## 
@@ -155,7 +161,7 @@ def bitsRateScript(n_bits,step,runBitsRate):
 
 def rateErrorCalculatorScript(n_bits,n_iterations,step):
     results = np.zeros(shape=(4,n_iterations))
-    snr = 5
+    snr = 2
 
     for i in range(0,n_iterations):
         bits = bitsGen(n_bits)
