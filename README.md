@@ -8,7 +8,7 @@ BipolarRZ, BipolarNRZ, PolarQuaternárioNRZ, NRZ-S, Manchester, 2BQ1,HDB3. Será
 de bits em de cada uma.
 
 Posteriormente, será adicionado ruído ao sinal (variando o SNR de 1 a 45) e atenuação, para simular um ambiente real. 
-Será feita a decodificação do sinal, diretamente e utilizando um filtro PB, e comparando o sinal obtido com o enviado,
+Será feita a decodificação do sinal, diretamente e utilizando um filtro PB, comparando o sinal obtido com o enviado,
 e detectando a taxa de erro de cada transmissão. As codificações para esta comaração serão as que não passam por zero e 
 possuem 2 amplitudes, a BipolarNRZ e Manchester.
 
