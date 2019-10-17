@@ -1,12 +1,11 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import random
+from scipy.signal import butter, lfilter, freqz
+
 
 ####################### Basic Functions #######################
 random.seed(1)
-
-def gen():
-    return np.random.rayleigh(0.5)
 
 def bitsGen(size):
     bits = np.random.randint(0, 2, size)
@@ -46,12 +45,12 @@ def plotSignal(x,y,bits,title):
     # plt.show()
     return 0
 
-def plotNoiseSig(noise,step,title):
+def plotNoiseSig(noise,step,title,bits,save):
     fig, ax = plt.subplots(constrained_layout=True)
     ax.plot(noise)
     ax.set_xlabel('Time (ms)')
     ax.set_ylabel('Voltage (V)')
-    ax.set_title(title+' signal with noise')
+    ax.set_title(title+' signal with noise\nBits: '+ str(bits))
 
     def forward(noise):
         return noise*step
@@ -61,7 +60,9 @@ def plotNoiseSig(noise,step,title):
 
     secax = ax.secondary_xaxis('top',functions=(forward, inverse))
     secax.set_xlabel('Bits')
-    fig.savefig("./images_noise/"+title+"_noise.png")
+
+    if save == True:
+        fig.savefig("./images_noise/"+title+"_noise.png")
     # plt.show() 
     return 0
 
@@ -86,6 +87,38 @@ def pulseWaveform(step, bits, pulses,title):
 
     return lc
 
+def butter_lowpass(cutoff, fs, order=5):
+    nyq = 0.5 * fs
+    normal_cutoff = cutoff / nyq
+    b, a = butter(order, normal_cutoff, btype='low', analog=False)
+    return b, a
+
+def butter_lowpass_filter(data, cutoff, fs, order=5):
+    b, a = butter_lowpass(cutoff, fs, order=order)
+    y = lfilter(b, a, data)
+    return y
+
+def filter(sig,order,fs,cutoff,step):
+    b, a = butter_lowpass(cutoff, fs, order)
+
+    plotSpec = False
+    if plotSpec == True:
+        # Plot the frequency response.
+        w, h = freqz(b, a, worN=8000)
+        plt.subplot(2, 1, 1)
+        plt.plot(0.5*fs*w/np.pi, np.abs(h), 'b')
+        plt.plot(cutoff, 0.5*np.sqrt(2), 'ko')
+        plt.axvline(cutoff, color='k')
+        plt.xlim(0, 0.5*fs)
+        plt.title("Lowpass Filter Frequency Response")
+        plt.xlabel('Frequency [Hz]')
+        plt.grid()
+        plt.show()
+
+    y = butter_lowpass_filter(sig, cutoff, fs, order)
+
+    return y
+
 ###################### Rate Calculations #######################
 
 def rateBits(Ts,M):
@@ -108,10 +141,10 @@ def rateError(y,y_noise,bits):
     rate = 0
     wrong_bits = 0
     symbolIndex = 1
-    shift = int(step/2)
+    shift = int(step/2) + 1
 
-    for j in range(0, size_y):                      # Pega um valor com ruído para armazenar cada bit enviado em um novo array
-        if j == step*symbolIndex - shift:             
+    for j in range(0, size_y):                      # Pega um valor com ruído no meio do bit, 
+        if j == step*symbolIndex - shift:           # para armazenar cada bit enviado em um novo array com tamanho original
             x[symbolIndex-1] = y[step*symbolIndex-shift]
             x_noise[symbolIndex-1] = y_noise[step*symbolIndex-shift]
             symbolIndex = symbolIndex + 1
@@ -131,63 +164,13 @@ def rateError(y,y_noise,bits):
             wrong_bits = wrong_bits + 1
 
     rate = (size_bits - wrong_bits)/size_bits
-    print("Size: "+str(size_bits))
-    print("Wrong: "+str(wrong_bits))
-    print("Rate: "+str(rate))
+    pb =  wrong_bits/size_bits
+    # print("Size: "+str(size_bits))
+    # print("Wrong: "+str(wrong_bits))
+    # print("Rate: "+str(rate))
+    # print("Pb: "+str(pb))
 
-    return rate
-        
-###################### Script Functions ######################## 
-
-def bitsRateScript(n_bits,step,runBitsRate):
-    results = np.zeros(shape=(9))
-    results[0] = rateBits(step,2) 
-    results[1] = rateBits(step,2)
-    results[2] = rateBits(step,2)
-    results[3] = rateBits(step,2)
-    results[4] = rateBits(step,2)
-    results[5] = rateBits(step,2)
-    results[6] = rateBits(step,2)
-    results[7] = rateBits(step,4)
-    results[8] = rateBits(step,4)
-
-    plot = False
-    if plot == True:
-        names = ['uni-NRZ', 'uni-RZ', 'bi-NRZ','bi-RZ', 'NRZ-S', 'manchest','hdb3', 'pol4-NRZ', '2b1q']
-        plt.rcdefaults()
-        fig, ax = plt.subplots()
-        y_pos = np.arange(len(names))
-        error = np.random.rand(len(names))
-        ax.barh(y_pos, results, xerr=error, align='center')
-        ax.set_yticks(y_pos)
-        ax.set_yticklabels(names)
-        ax.invert_yaxis()  # labels read top-to-bottom
-        ax.set_xlabel('Taxa de bits')
-        ax.set_title('Taxa de bits por codificação com Ts: '+str(step)+'s')
-        fig.savefig("./images/bitsRate.png")
-        # plt.show()
-    return results
-
-def rateErrorCalculatorScript(n_bits,n_iterations,step):
-    results = np.zeros(shape=(4,n_iterations))
-    snr = 6
-
-    for i in range(0,n_iterations):
-        bits = bitsGen(n_bits)
-
-        print("Bipolar")
-        bipolarNRZ_lc = bipolarNRZ(bits, step) 
-        bipolarNRZ_lc_noise = noiseGen(bipolarNRZ_lc,step,n_bits,snr)  
-        meanRate_bipolar = rateError(bipolarNRZ_lc,bipolarNRZ_lc_noise,bits)
-        plotNoiseSig(bipolarNRZ_lc_noise,step,"BipolarNRZ_6db_snr")
-
-        print("Manchester")
-        manchester_lc = manchester(bits, step)
-        manchester_lc_noise = noiseGen(manchester_lc,step,n_bits,snr)  
-        meanRate_man = rateError(manchester_lc,manchester_lc_noise,bits) 
-        plotNoiseSig(manchester_lc_noise,step,"Manchester_6db_snr")
-
-    return results
+    return pb,rate
 
 ############################ Line Codes #############################
 
@@ -399,3 +382,105 @@ def twob1q(bits, step):
   
     lc = pulseWaveform(step, bits, pulses, "2B1Q")
     return lc
+
+
+###################### Script Functions ######################## 
+
+def bitsRateScript(n_bits,step,runBitsRate):
+    results = np.zeros(shape=(9))
+    results[0] = rateBits(step,2) 
+    results[1] = rateBits(step,2)
+    results[2] = rateBits(step,2)
+    results[3] = rateBits(step,2)
+    results[4] = rateBits(step,2)
+    results[5] = rateBits(step,2)
+    results[6] = rateBits(step,2)
+    results[7] = rateBits(step,4)
+    results[8] = rateBits(step,4)
+
+    plot = False
+    if plot == True:
+        names = ['uni-NRZ', 'uni-RZ', 'bi-NRZ','bi-RZ', 'NRZ-S', 'manchest','hdb3', 'pol4-NRZ', '2b1q']
+        plt.rcdefaults()
+        fig, ax = plt.subplots()
+        y_pos = np.arange(len(names))
+        error = np.random.rand(len(names))
+        ax.barh(y_pos, results, xerr=error, align='center')
+        ax.set_yticks(y_pos)
+        ax.set_yticklabels(names)
+        ax.invert_yaxis()  # labels read top-to-bottom
+        ax.set_xlabel('Taxa de bits')
+        ax.set_title('Taxa de bits por codificação com Ts: '+str(step)+'s')
+        fig.savefig("./images/bitsRate.png")
+        # plt.show()
+    return results
+
+def rateErrorCalculatorScript(n_bits,n_iterations,step):
+    results = {}
+    snr = 1
+    cutoff = 160
+    fs = 8000
+    order = 6
+    plot = False
+    save_plot = False
+
+    for j in range(0,10):                # Média de 10 vezes cada iteração de 45 valores de snr
+        bits = bitsGen(n_bits)          # 1 vetor de bits para cada iteração (mesmo vetor para todos snr)
+        bip_noise_res =[]
+        bip_filt_res = []
+        man_noise_res = []
+        man_filt_res = []
+
+        for i in range(0,45):
+            print("\nSNR: "+str(snr))
+            print("\n******** Bipolar ********")
+            bipolarNRZ_lc = bipolarNRZ(bits, step) 
+            bipolarNRZ_lc_noise = noiseGen(bipolarNRZ_lc,step,n_bits,snr)  
+            bipolar_filtered = filter(bipolarNRZ_lc_noise,order,fs,cutoff,step)
+
+            bipolar_rate_noise,x = rateError(bipolarNRZ_lc,bipolarNRZ_lc_noise,bits)
+            bipolar_rate_filtered,x = rateError(bipolarNRZ_lc,bipolar_filtered,bits)
+
+
+            print("\n******** Manchester ********") 
+            manchester_lc = manchester(bits, step)
+            manchester_lc_noise = noiseGen(manchester_lc,step,n_bits,snr)  
+            manchester_filtered = filter(manchester_lc_noise,order,fs,cutoff,step)
+
+            manc_rate_noise,x = rateError(manchester_lc,manchester_lc_noise,bits)
+            manc_rate_filtered,x = rateError(manchester_lc,manchester_filtered,bits)
+
+            bip_noise_res.append(bipolar_rate_noise)
+            bip_filt_res.append(bipolar_rate_filtered)
+            man_noise_res.append(manc_rate_noise)
+            man_filt_res.append(manc_rate_filtered)
+
+            snr = snr + 1
+
+            if plot == True:
+                plotNoiseSig(bipolarNRZ_lc_noise,step,"BipolarNRZ_6db_snr",bits,save_plot)
+                plotNoiseSig(bipolar_filtered,step,"BipolarNRZ_filtered",bits,save_plot)
+                plotNoiseSig(manchester_lc_noise,step,"Manchester_6db_snr",bits,save_plot)
+                plotNoiseSig(manchester_filtered,step,"Manchester_filtered",bits,save_plot)
+
+        data = { 
+                    "BipolarNRZ_noise":bip_noise_res,
+                    "BipolarNRZ_filtered":bip_filt_res,
+                    "Manchester_noise":man_noise_res,
+                    "Manchester_filtered":man_filt_res
+        }
+
+        results["Iteration_"+str(j)] = data
+        snr = 1
+        del bip_noise_res
+        del bip_filt_res
+        del man_noise_res
+        del man_filt_res
+
+        # bip_noise_res.clear()
+        # bip_filt_res.clear()
+        # man_noise_res.clear()
+        # man_filt_res.clear()
+
+        
+    return results
