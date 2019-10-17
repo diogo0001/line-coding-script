@@ -27,8 +27,8 @@ def getSnrNoise(snr,sig):
 def noiseGen(lc,step,n_bits,snr): 
     coef = getSnrNoise(snr,lc)
     noise = np.random.normal(0,coef,len(lc))
-    noise = (lc + noise)*np.random.rayleigh(0.4)
-    return noise
+    noise_sig = (lc + noise)*np.random.rayleigh(0.1)
+    return noise_sig
 
 def plotSignal(x,y,bits,title):
     fig = plt.figure()
@@ -61,14 +61,12 @@ def plotNoiseSig(noise,step,title):
 
     secax = ax.secondary_xaxis('top',functions=(forward, inverse))
     secax.set_xlabel('Bits')
-    # fig.savefig("./images_noise/"+title+"_noise.png")
-    plt.show() 
-    
+    fig.savefig("./images_noise/"+title+"_noise.png")
+    # plt.show() 
     return 0
 
 def pulseWaveform(step, bits, pulses,title):
     size = len(pulses)
-    sizeBits = len(bits)
     t = np.arange(0, size, step)
     size_t = len(t)
     lc = np.zeros(size_t)
@@ -83,7 +81,7 @@ def pulseWaveform(step, bits, pulses,title):
                 symbolIndex = symbolIndex+1
                 
     plot = False
-    if plot == True and sizeBits <=32:        
+    if plot == True and size <=32:        
         plotSignal(t, lc, bits, title)
 
     return lc
@@ -98,34 +96,45 @@ def rateBits(Ts,M):
         rate = (1/Ts)*nBits
     return rate
 
-def rateError(y,y_noise,bits):      
+def rateError(y,y_noise,bits):   
+    size_y = len(y_noise)
+    size_bits = len(bits)
+    step = int(size_y/size_bits)
+    x = np.zeros(size_bits)
+    x_noise = np.zeros(size_bits)
+    z = np.zeros(size_bits)
+    z_noise = np.zeros(size_bits)
+    L = 0   
     rate = 0
-    size = len(y_noise)
-    L = 0
-    z = np.zeros(size)
-    zn = np.zeros(size)
-    zero = np.zeros(size)
+    wrong_bits = 0
+    symbolIndex = 1
+    shift = int(step/2)
 
-    for i in range(0,size):
-        if y_noise[i] > L:
-            zn[i] = 1
-        else:
-            zn[i] = -1
-        
-        if y[i] > L:
+    for j in range(0, size_y):                      # Pega um valor com ruído para armazenar cada bit enviado em um novo array
+        if j == step*symbolIndex - shift:             
+            x[symbolIndex-1] = y[step*symbolIndex-shift]
+            x_noise[symbolIndex-1] = y_noise[step*symbolIndex-shift]
+            symbolIndex = symbolIndex + 1
+
+    for i in range(0,size_bits):
+        if x[i] > L:
             z[i] = 1
         else:
             z[i] = -1
+        
+        if x_noise[i] > L:
+            z_noise[i] = 1
+        else:
+            z_noise[i] = -1
 
-    dif = z-zn
-    rate = list(set(dif) - set(zero))
-    unique, counts = np.unique(dif, return_counts=True)
-    count = np.asarray(( counts)).T
-    count = count[1]
-    print(size)
-    print (count)
-    rate = count/size
-    print(rate)
+        if z[i] != z_noise[i]:
+            wrong_bits = wrong_bits + 1
+
+    rate = (size_bits - wrong_bits)/size_bits
+    print("Size: "+str(size_bits))
+    print("Wrong: "+str(wrong_bits))
+    print("Rate: "+str(rate))
+
     return rate
         
 ###################### Script Functions ######################## 
@@ -161,23 +170,22 @@ def bitsRateScript(n_bits,step,runBitsRate):
 
 def rateErrorCalculatorScript(n_bits,n_iterations,step):
     results = np.zeros(shape=(4,n_iterations))
-    snr = 2
+    snr = 6
 
     for i in range(0,n_iterations):
         bits = bitsGen(n_bits)
-        # print(bits)
+
+        print("Bipolar")
         bipolarNRZ_lc = bipolarNRZ(bits, step) 
         bipolarNRZ_lc_noise = noiseGen(bipolarNRZ_lc,step,n_bits,snr)  
         meanRate_bipolar = rateError(bipolarNRZ_lc,bipolarNRZ_lc_noise,bits)
+        plotNoiseSig(bipolarNRZ_lc_noise,step,"BipolarNRZ_6db_snr")
 
-
-        # NRZSpace_lc = NRZSpace(bits, step) 
-        # NRZSpace_lc_noise = noiseGen(NRZSpace_lc,step,snr)  
-        # meanRate_NRZ = rateError(NRZSpace_lc,NRZSpace_lc_noise)
-
-        # manchester_lc = manchester(bits, step)
-        # manchester_lc_noise = noiseGen(manchester_lc,step,snr)  
-        # meanRate_man = rateError(manchester_lc,manchester_lc_noise) 
+        print("Manchester")
+        manchester_lc = manchester(bits, step)
+        manchester_lc_noise = noiseGen(manchester_lc,step,n_bits,snr)  
+        meanRate_man = rateError(manchester_lc,manchester_lc_noise,bits) 
+        plotNoiseSig(manchester_lc_noise,step,"Manchester_6db_snr")
 
     return results
 
