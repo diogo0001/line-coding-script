@@ -60,7 +60,7 @@ Teste com codificação Manchester com atenuação e ruído
 
 ![](https://github.com/diogo0001/line-coding-script/blob/master/images_noise/Manchester_at_noise.png)
 
-### Com SNR de 6 db:
+### Com SNR de 6 db e atenuação utilizando a distribuição de Rayleigh:
 
 ![](https://github.com/diogo0001/line-coding-script/blob/master/images_noise/BipolarNRZ_6db_snr_noise.png)
 
