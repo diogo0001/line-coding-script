@@ -47,12 +47,12 @@ As codificaçõs Polar-Quaternário-NRZ e 2B1Q apresentam uma maior taxa de tran
 
 ![](https://github.com/diogo0001/line-coding-script/blob/master/images/2B1Q.png)
 
-## Aplicando ruído e atenuação
+# Aplicando ruído e atenuação
 
 Será aplicado ruído e atenuação ao sinal para verificar a taxa de erro de bits na decodificação. O ruído aplicado será feito variando
 o SNR de 1 a 45 para a comparação das taxas de erro.
 
-Teste com codificação Manchester com ruído e SNR = 45
+### Teste com codificação Manchester com ruído e SNR = 45
 
 ![](https://github.com/diogo0001/line-coding-script/blob/master/images_noise/Manchester_noise.png)
 
@@ -60,7 +60,7 @@ Teste com codificação Manchester com atenuação e ruído
 
 ![](https://github.com/diogo0001/line-coding-script/blob/master/images_noise/Manchester_at_noise.png)
 
-Com SNR de 6 db:
+### Com SNR de 6 db:
 
 ![](https://github.com/diogo0001/line-coding-script/blob/master/images_noise/BipolarNRZ_6db_snr_noise.png)
 
