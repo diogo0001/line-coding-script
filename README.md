@@ -20,7 +20,6 @@ e detectando a taxa de erro de cada transmissão.
   Para executar, deve-se chamar as funções no arquivo lineCodeScript.
  
 
-
 ### Comparação da taxa de bits por codificação
 
 ![](https://github.com/diogo0001/line-coding-script/blob/master/images/bitsRate.png)
