@@ -172,7 +172,7 @@ def rateError(y,y_noise,bits):
 
     return pb,rate
 
-############################ Line Codes #############################
+############################ Line Codes ########################
 
 def unipolarNRZ(bits, step):
     M = 2
@@ -424,7 +424,7 @@ def rateErrorCalculatorScript(n_bits,n_iterations,step):
     plot = False
     save_plot = False
 
-    for j in range(0,10):                # Média de 10 vezes cada iteração de 45 valores de snr
+    for j in range(0,n_iterations):                # Média de 10 vezes cada iteração de 45 valores de snr
         bits = bitsGen(n_bits)          # 1 vetor de bits para cada iteração (mesmo vetor para todos snr)
         bip_noise_res =[]
         bip_filt_res = []
@@ -476,11 +476,5 @@ def rateErrorCalculatorScript(n_bits,n_iterations,step):
         del bip_filt_res
         del man_noise_res
         del man_filt_res
-
-        # bip_noise_res.clear()
-        # bip_filt_res.clear()
-        # man_noise_res.clear()
-        # man_filt_res.clear()
-
         
     return results

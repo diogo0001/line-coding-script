@@ -1,0 +1,812 @@
+{
+    "SNR_0": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.13164375,
+            "Wrong_bits_mean": 2106
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.132325,
+            "Wrong_bits_mean": 2117
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_1": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.1049,
+            "Wrong_bits_mean": 1678
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.1040375,
+            "Wrong_bits_mean": 1664
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_2": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.07965,
+            "Wrong_bits_mean": 1274
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.077125,
+            "Wrong_bits_mean": 1234
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_3": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.05619999999999999,
+            "Wrong_bits_mean": 899
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.056143750000000006,
+            "Wrong_bits_mean": 898
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_4": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.037325,
+            "Wrong_bits_mean": 597
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.037887500000000005,
+            "Wrong_bits_mean": 606
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_5": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.022918749999999998,
+            "Wrong_bits_mean": 366
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.02311875,
+            "Wrong_bits_mean": 369
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_6": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.013093750000000001,
+            "Wrong_bits_mean": 209
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.01289375,
+            "Wrong_bits_mean": 206
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_7": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.005999999999999999,
+            "Wrong_bits_mean": 95
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.005912499999999999,
+            "Wrong_bits_mean": 94
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_8": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.0023625,
+            "Wrong_bits_mean": 37
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.00239375,
+            "Wrong_bits_mean": 38
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_9": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.00065625,
+            "Wrong_bits_mean": 10
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.0006937499999999998,
+            "Wrong_bits_mean": 11
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_10": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.00020625,
+            "Wrong_bits_mean": 3
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.00016875,
+            "Wrong_bits_mean": 2
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_11": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 3.7500000000000003e-05,
+            "Wrong_bits_mean": 0
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 2.5e-05,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_12": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 6.25e-06,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_13": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_14": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_15": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_16": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_17": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_18": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_19": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_20": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_21": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_22": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_23": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_24": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_25": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_26": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_27": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_28": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_29": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_30": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_31": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_32": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_33": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_34": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_35": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_36": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_37": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_38": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_39": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_40": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_41": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_42": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_43": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    },
+    "SNR_44": {
+        "BipolarNRZ_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "BipolarNRZ_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_noise": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        },
+        "Manchester_filtered": {
+            "Pb_mean": 0.0,
+            "Wrong_bits_mean": 0
+        }
+    }
+}
