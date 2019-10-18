@@ -17,6 +17,7 @@ possuem 2 amplitudes, a BipolarNRZ e Manchester.
   - Python 3
   - numpy
   - matplotlib
+  - scipy
   
   Para executar, deve-se chamar as funções no arquivo lineCodeScript.
  
