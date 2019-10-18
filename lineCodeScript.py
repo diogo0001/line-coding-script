@@ -7,8 +7,13 @@ n_iterations = 10                       # Para a média
 
 run_snr_iterations = False              # roda as iterações para os valores de snr e salva o json
 open_json_mean_errors = False           # abre o json gerado e calcula as médias 
+plot_SNRxPb = True
 RESULTS_FILE = "Results.json"           # resultado bruto das iterações 
 MEAN_ERRORS_FILE = "Results_mean.json"  # media dos resultados anteriores
+
+run_text_message = True
+text_test = "Hello! Lets check how many wrong characters will be received in this message"
+
 
 ##############################################################
 
@@ -37,32 +42,35 @@ if open_json_mean_errors == True:
     man_filt_res = []
     mean = {}
 
-    for i in data:
+    for i in data:                   # carrega os valores
         bip_noise_res.append(data[i]["BipolarNRZ_noise"])
         bip_filt_res.append(data[i]["BipolarNRZ_filtered"])
         man_noise_res.append(data[i]["Manchester_noise"])
         man_filt_res.append(data[i]["Manchester_filtered"])
 
-    for j in range(0,len(bip_noise_res[0])):
+    snr_size = len(bip_noise_res[0])
+    pb_size = len(bip_noise_res)
+
+    for j in range(0,snr_size):     # calcula as médias
         temp1 = []
         temp2 = []
         temp3 = []
         temp4 = []
 
-        for i in range(0,len(bip_noise_res)):
+        for i in range(0,pb_size):
             temp1.append(bip_noise_res[i][j])
             temp2.append(bip_filt_res[i][j])
             temp3.append(man_noise_res[i][j])
             temp4.append(man_filt_res[i][j])
 
-            pb1 = sum(temp1) / float(len(temp1))
-            pb2 = sum(temp2) / float(len(temp2))
-            pb3 = sum(temp3) / float(len(temp3))
-            pb4 = sum(temp4) / float(len(temp4))
-            wb1 = int(pb1*vectorSize)
-            wb2 = int(pb2*vectorSize)
-            wb3 = int(pb3*vectorSize)
-            wb4 = int(pb4*vectorSize)
+        pb1 = sum(temp1) / float(len(temp1))
+        pb2 = sum(temp2) / float(len(temp2))
+        pb3 = sum(temp3) / float(len(temp3))
+        pb4 = sum(temp4) / float(len(temp4))
+        wb1 = int(pb1*vectorSize)
+        wb2 = int(pb2*vectorSize)
+        wb3 = int(pb3*vectorSize)
+        wb4 = int(pb4*vectorSize)
 
         data = { 
                 "BipolarNRZ_noise":{"Pb_mean":pb1,"Wrong_bits_mean":wb1},
@@ -72,13 +80,55 @@ if open_json_mean_errors == True:
             }
 
         mean["SNR_"+str(j)] = data
+
         del temp1 
         del temp2 
         del temp3 
         del temp4 
-        
+    
+    temp1 = []
+    temp2 = []
+    temp3 = []
+    temp4 = []
+    snr = []
+    j = 1
+    for i in mean:
+        temp1.append(mean[i]["BipolarNRZ_noise"]["Pb_mean"])
+        temp2.append(mean[i]["BipolarNRZ_filtered"]["Pb_mean"])
+        temp3.append(mean[i]["Manchester_noise"]["Pb_mean"])
+        temp4.append(mean[i]["Manchester_filtered"]["Pb_mean"])
+        snr.append(j)
+        j = j + 1
+
+    if plot_SNRxPb == True:
+        title = "SRNxPb BipolarNRZ_noise "
+        lc.plotPbSnr(temp1,snr,title)
+
+        title = "SRNxPb BipolarNRZ_filtered "
+        lc.plotPbSnr(temp2,snr,title)
+
+        title = "SRNxPb Manchester_noise"
+        lc.plotPbSnr(temp3,snr,title)
+
+        title = "SRNxPb Manchester_filtered "
+        lc.plotPbSnr(temp4,snr,title)
+
+
     with open(MEAN_ERRORS_FILE, "w") as write_file:
         json.dump(mean, write_file,indent=4)
 
 #############################################################
 
+if run_text_message == True:
+    bits = lc.strToBits(text_test)
+    
+    bipolarNRZ_lc = lc.bipolarNRZ(bits, step) 
+    bipolarNRZ_lc_noise = lc.noiseGen(bipolarNRZ_lc,step,n_bits,snr)  
+    bipolar_rate_noise,x = lc.rateError(bipolarNRZ_lc,bipolarNRZ_lc_noise,bits)
+
+    manchester_lc = lc.manchester(bits, step)
+    manchester_lc_noise = lc.noiseGen(manchester_lc,step,n_bits,snr)  
+    manc_rate_noise,x = lc.rateError(manchester_lc,manchester_lc_noise,bits)
+
+
+    msg_back = bitsToStr(bits)

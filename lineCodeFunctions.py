@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import random
 from scipy.signal import butter, lfilter, freqz
-
+import bitarray
 
 ####################### Basic Functions #######################
 random.seed(1)
@@ -118,6 +118,33 @@ def filter(sig,order,fs,cutoff,step):
     y = butter_lowpass_filter(sig, cutoff, fs, order)
 
     return y
+
+def plotPbSnr(pb,snr,title):
+    fig = plt.figure()
+    plt.subplot()
+    plt.title(title)
+    plt.plot(snr, pb)
+    plt.xlabel('SNR (db)')
+    plt.ylabel('Pb')
+    plt.xscale('log')
+    plt.grid(b=True, which='major', color='#444444', 
+                        linestyle='-',alpha = 0.3)
+    plt.minorticks_on()
+    plt.grid(b=True, which='minor', color='#444444', 
+                        linestyle='-',alpha = 0.2)
+    fig.savefig("./images_noise/"+title+".png")
+    # plt.show()
+    
+    return 0
+
+def strToBits(string):
+    ba = bitarray.bitarray()
+    ba.frombytes(string.encode('utf-8'))
+    return ba
+
+def bitsToStr(bits):
+    string = bitarray.bitarray(bits).tobytes().decode('utf-8')
+    return string
 
 ###################### Rate Calculations #######################
 
