@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import random
 from scipy.signal import butter, lfilter, freqz
-import bitarray
+# import bitarray
 
 ####################### Basic Functions #######################
 random.seed(1)
