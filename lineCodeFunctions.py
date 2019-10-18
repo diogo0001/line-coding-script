@@ -137,14 +137,18 @@ def plotPbSnr(pb,snr,title):
     
     return 0
 
-def strToBits(string):
-    ba = bitarray.bitarray()
-    ba.frombytes(string.encode('utf-8'))
-    return ba
+def strToBits(text):
+    # ba = bitarray.bitarray()
+    # ba.frombytes(text.encode('utf-8'))
+    # return ba
+
+    bits = bin(int.from_bytes(text.encode(), 'big'))[2:]
+    return list(map(int, bits.zfill(8 * ((len(bits) + 7) // 8))))
 
 def bitsToStr(bits):
-    string = bitarray.bitarray(bits).tobytes().decode('utf-8')
-    return string
+    # string = bitarray.bitarray(bits).tobytes().decode('utf-8')
+    n = int(''.join(map(str, bits)), 2)
+    return n.to_bytes((n.bit_length() + 7) // 8, 'big').decode()
 
 ###################### Rate Calculations #######################
 
@@ -164,6 +168,7 @@ def rateError(y,y_noise,bits):
     x_noise = np.zeros(size_bits)
     z = np.zeros(size_bits)
     z_noise = np.zeros(size_bits)
+    decoded = []
     L = 0   
     rate = 0
     wrong_bits = 0
@@ -184,8 +189,10 @@ def rateError(y,y_noise,bits):
         
         if x_noise[i] > L:
             z_noise[i] = 1
+            decoded.append(int(1))
         else:
             z_noise[i] = -1
+            decoded.append(int(0))
 
         if z[i] != z_noise[i]:
             wrong_bits = wrong_bits + 1
@@ -197,7 +204,7 @@ def rateError(y,y_noise,bits):
     # print("Rate: "+str(rate))
     # print("Pb: "+str(pb))
 
-    return pb,rate
+    return pb,rate, decoded
 
 ############################ Line Codes ########################
 
@@ -465,8 +472,8 @@ def rateErrorCalculatorScript(n_bits,n_iterations,step):
             bipolarNRZ_lc_noise = noiseGen(bipolarNRZ_lc,step,n_bits,snr)  
             bipolar_filtered = filter(bipolarNRZ_lc_noise,order,fs,cutoff,step)
 
-            bipolar_rate_noise,x = rateError(bipolarNRZ_lc,bipolarNRZ_lc_noise,bits)
-            bipolar_rate_filtered,x = rateError(bipolarNRZ_lc,bipolar_filtered,bits)
+            bipolar_rate_noise,x,y = rateError(bipolarNRZ_lc,bipolarNRZ_lc_noise,bits)
+            bipolar_rate_filtered,x,y = rateError(bipolarNRZ_lc,bipolar_filtered,bits)
 
 
             print("\n******** Manchester ********") 
@@ -474,8 +481,8 @@ def rateErrorCalculatorScript(n_bits,n_iterations,step):
             manchester_lc_noise = noiseGen(manchester_lc,step,n_bits,snr)  
             manchester_filtered = filter(manchester_lc_noise,order,fs,cutoff,step)
 
-            manc_rate_noise,x = rateError(manchester_lc,manchester_lc_noise,bits)
-            manc_rate_filtered,x = rateError(manchester_lc,manchester_filtered,bits)
+            manc_rate_noise,x,y = rateError(manchester_lc,manchester_lc_noise,bits)
+            manc_rate_filtered,x,y = rateError(manchester_lc,manchester_filtered,bits)
 
             bip_noise_res.append(bipolar_rate_noise)
             bip_filt_res.append(bipolar_rate_filtered)

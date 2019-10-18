@@ -11,9 +11,9 @@ plot_SNRxPb = True
 RESULTS_FILE = "Results.json"           # resultado bruto das iterações 
 MEAN_ERRORS_FILE = "Results_mean.json"  # media dos resultados anteriores
 
-run_text_message = True
+run_text_message = False
 text_test = "Hello! Lets check how many wrong characters will be received in this message"
-
+MSG_ERRORS_FILE = "Msg_errors.json"
 
 ##############################################################
 
@@ -119,16 +119,53 @@ if open_json_mean_errors == True:
 
 #############################################################
 
+def compare(x,y):
+    size = len (x)
+    wrong_bits = 0
+
+    for i in range(0,size):
+        if x[i] != y[i]:
+            wrong_bits = wrong_bits + 1
+
+    return wrong_bits
+
 if run_text_message == True:
     bits = lc.strToBits(text_test)
+    n_bits = len(bits)
+    snr = 1
+    iterations = 15
+    errors = {}
+
+    print(bits)
+
+    for i in range(0,iterations):
+        print("Bipolar")
+        bipolarNRZ_lc = lc.bipolarNRZ(bits, step) 
+        bipolarNRZ_lc_noise = lc.noiseGen(bipolarNRZ_lc,step,n_bits,snr)  
+        bipolar_rate_noise,x,dec = lc.rateError(bipolarNRZ_lc,bipolarNRZ_lc_noise,bits)
+        wrong_bip = compare(bits,dec) 
+        print(wrong_bip)
+        # msg_back = lc.bitsToStr(dec)
+        # print(msg_back)
+
+        print("Manchester")
+        manchester_lc = lc.manchester(bits, step)
+        manchester_lc_noise = lc.noiseGen(manchester_lc,step,n_bits,snr)  
+        manc_rate_noise,x,dec = lc.rateError(manchester_lc,manchester_lc_noise,bits)
+        wrong_man = compare(bits,dec) 
+        print(wrong_man)
+        # msg_back = lc.bitsToStr(dec)
+        # print(msg_back)
+
+        data = {
+            "BipolarNRZ_error":wrong_bip,
+            "Manchester_error":wrong_man
+        }
+        errors["SNR_"+str(snr)] = data
+        snr = snr + 1
+
+    with open(MSG_ERRORS_FILE, "w") as write_file:
+        json.dump(errors, write_file,indent=4)
+
+    print(errors)
     
-    bipolarNRZ_lc = lc.bipolarNRZ(bits, step) 
-    bipolarNRZ_lc_noise = lc.noiseGen(bipolarNRZ_lc,step,n_bits,snr)  
-    bipolar_rate_noise,x = lc.rateError(bipolarNRZ_lc,bipolarNRZ_lc_noise,bits)
-
-    manchester_lc = lc.manchester(bits, step)
-    manchester_lc_noise = lc.noiseGen(manchester_lc,step,n_bits,snr)  
-    manc_rate_noise,x = lc.rateError(manchester_lc,manchester_lc_noise,bits)
-
-
-    msg_back = bitsToStr(bits)

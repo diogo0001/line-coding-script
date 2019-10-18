@@ -1,0 +1,62 @@
+{
+    "SNR_1": {
+        "BipolarNRZ_error": 77,
+        "Manchester_error": 84
+    },
+    "SNR_2": {
+        "BipolarNRZ_error": 52,
+        "Manchester_error": 61
+    },
+    "SNR_3": {
+        "BipolarNRZ_error": 47,
+        "Manchester_error": 50
+    },
+    "SNR_4": {
+        "BipolarNRZ_error": 35,
+        "Manchester_error": 36
+    },
+    "SNR_5": {
+        "BipolarNRZ_error": 22,
+        "Manchester_error": 18
+    },
+    "SNR_6": {
+        "BipolarNRZ_error": 11,
+        "Manchester_error": 10
+    },
+    "SNR_7": {
+        "BipolarNRZ_error": 7,
+        "Manchester_error": 9
+    },
+    "SNR_8": {
+        "BipolarNRZ_error": 4,
+        "Manchester_error": 2
+    },
+    "SNR_9": {
+        "BipolarNRZ_error": 1,
+        "Manchester_error": 1
+    },
+    "SNR_10": {
+        "BipolarNRZ_error": 0,
+        "Manchester_error": 1
+    },
+    "SNR_11": {
+        "BipolarNRZ_error": 0,
+        "Manchester_error": 0
+    },
+    "SNR_12": {
+        "BipolarNRZ_error": 0,
+        "Manchester_error": 0
+    },
+    "SNR_13": {
+        "BipolarNRZ_error": 0,
+        "Manchester_error": 0
+    },
+    "SNR_14": {
+        "BipolarNRZ_error": 0,
+        "Manchester_error": 0
+    },
+    "SNR_15": {
+        "BipolarNRZ_error": 0,
+        "Manchester_error": 0
+    }
+}
