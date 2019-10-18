@@ -92,6 +92,9 @@ Este é o SNR utilizado para calibrar a taxa de bits para a média de 200 erros 
 
 ![](https://github.com/diogo0001/line-coding-script/blob/master/images_noise/SRNxPb%20Manchester_noise.png)
 
+Pode-se verificar que houveram erros de transmissão com um SNR inferior à 15 dB, conforme o SNR aumenta
+menor é a taxa de erros.
+
 ### Gráficos da probabilidade de erro x SNR para as codificações com filtragem
 
 O filtro aplicado é o mostrado a seguir:
