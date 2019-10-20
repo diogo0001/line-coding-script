@@ -1,4 +1,4 @@
-# Script para testes de codificações de linha
+# Script para testes de codificações de linha - Parte I
 
 ### Autor: Diogo Tavares
 
