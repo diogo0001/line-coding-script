@@ -73,3 +73,17 @@ Os gráficos a seguir mostram que não houveram erros de bits na transmissão:
 ![](https://github.com/diogo0001/line-coding-script/blob/master/images_noise/SRNxPb%20BipolarNRZ_filtered%20.png)
 
 ![](https://github.com/diogo0001/line-coding-script/blob/master/images_noise/SRNxPb%20Manchester_filtered%20.png)
+
+### Teste de erros em recepção de mensagem
+
+Foi feito o teste enviando a seguinte mensagem: 
+
+"Hello! Lets check how many wrong characters will be received in this message"
+
+Foram salvos os resultados da sua decodificação, variando o SNR de 1 a 15, estes podem ser vistos no arquivo [Msg_errors.json](https://github.com/diogo0001/line-coding-script/blob/master/Msg_errors.json). Estes foram feitos utilizando apenas o sinal com ruído,
+uma vez que o sinal filtrado não apresentou nenhum erro de bit.
+
+Percebe-se que a mensagem pode ser perfeitamente recebida com SNRs já próximos a 15, o que confirma 
+os resultados vistos anteriormente.
+
+
