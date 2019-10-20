@@ -58,7 +58,7 @@ menor é a taxa de erros.
 
 O filtro aplicado é o mostrado a seguir:
 
-![Filtro]()
+![](https://github.com/diogo0001/line-coding-script/blob/master/images_noise/filter.png)
 
 Os parâmetrod do filtro são:
 
