@@ -1,6 +1,6 @@
 # Script para testes de codificações de linha
 
-## Autor: Diogo Tavares
+### Autor: Diogo Tavares e Alexsandro Gehlen
 
 ## Github: https://github.com/diogo0001/line-coding-script
 
