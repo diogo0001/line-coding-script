@@ -7,13 +7,14 @@ n_iterations = 10                       # Para a média
 
 run_snr_iterations = False              # roda as iterações para os valores de snr e salva o json
 open_json_mean_errors = False           # abre o json gerado e calcula as médias 
-plot_SNRxPb = True
+plot_SNRxPb = False
 RESULTS_FILE = "Results.json"           # resultado bruto das iterações 
 MEAN_ERRORS_FILE = "Results_mean.json"  # media dos resultados anteriores
 
 run_text_message = False
 text_test = "Hello! Lets check how many wrong characters will be received in this message"
 MSG_ERRORS_FILE = "Msg_errors.json"
+
 
 ##############################################################
 

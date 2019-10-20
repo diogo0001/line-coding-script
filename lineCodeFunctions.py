@@ -104,12 +104,12 @@ def filter(sig,order,fs,cutoff,step):
     plotSpec = False
     if plotSpec == True:
         # Plot the frequency response.
-        w, h = freqz(b, a, worN=8000)
+        w, h = freqz(b, a, worN=fs)
         plt.subplot(2, 1, 1)
         plt.plot(0.5*fs*w/np.pi, np.abs(h), 'b')
         plt.plot(cutoff, 0.5*np.sqrt(2), 'ko')
         plt.axvline(cutoff, color='k')
-        plt.xlim(0, 0.5*fs)
+        plt.xlim(0, 0.1*fs)
         plt.title("Lowpass Filter Frequency Response")
         plt.xlabel('Frequency [Hz]')
         plt.grid()
