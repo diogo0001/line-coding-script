@@ -138,17 +138,21 @@ def plotPbSnr(pb,snr,title):
     return 0
 
 def strToBits(text):
-    # ba = bitarray.bitarray()
-    # ba.frombytes(text.encode('utf-8'))
-    # return ba
-
     bits = bin(int.from_bytes(text.encode(), 'big'))[2:]
     return list(map(int, bits.zfill(8 * ((len(bits) + 7) // 8))))
 
 def bitsToStr(bits):
-    # string = bitarray.bitarray(bits).tobytes().decode('utf-8')
-    n = int(''.join(map(str, bits)), 2)
-    return n.to_bytes((n.bit_length() + 7) // 8, 'big').decode()
+    temp = []
+    i = 0   
+
+    while(i<len(bits)):
+        res = int("".join(map(str, bits[i:i+8])),base=2) 
+        
+        temp.append(chr(res))
+        i +=8
+
+    text = ''.join(temp)    
+    return text
 
 ###################### Rate Calculations #######################
 

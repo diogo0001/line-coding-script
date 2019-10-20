@@ -11,7 +11,7 @@ plot_SNRxPb = False
 RESULTS_FILE = "Results.json"           # resultado bruto das iterações 
 MEAN_ERRORS_FILE = "Results_mean.json"  # media dos resultados anteriores
 
-run_text_message = False
+run_text_message = True
 text_test = "Hello! Lets check how many wrong characters will be received in this message"
 MSG_ERRORS_FILE = "Msg_errors.json"
 
@@ -135,7 +135,8 @@ if run_text_message == True:
     n_bits = len(bits)
     snr = 1
     iterations = 15
-    errors = {}
+    errors = {"Original message":text_test}
+    save_json = True
 
     print(bits)
 
@@ -146,8 +147,8 @@ if run_text_message == True:
         bipolar_rate_noise,x,dec = lc.rateError(bipolarNRZ_lc,bipolarNRZ_lc_noise,bits)
         wrong_bip = compare(bits,dec) 
         print(wrong_bip)
-        # msg_back = lc.bitsToStr(dec)
-        # print(msg_back)
+        bip_msg_back = lc.bitsToStr(dec)
+        print(bip_msg_back)
 
         print("Manchester")
         manchester_lc = lc.manchester(bits, step)
@@ -155,18 +156,21 @@ if run_text_message == True:
         manc_rate_noise,x,dec = lc.rateError(manchester_lc,manchester_lc_noise,bits)
         wrong_man = compare(bits,dec) 
         print(wrong_man)
-        # msg_back = lc.bitsToStr(dec)
-        # print(msg_back)
+        man_msg_back = lc.bitsToStr(dec)
+        print(man_msg_back)
 
         data = {
-            "BipolarNRZ_error":wrong_bip,
-            "Manchester_error":wrong_man
+            "BipolarNRZ_errors": {"Received_msg":bip_msg_back,
+                                  "wrong_bits": wrong_bip},
+            "Manchester_errors":{"Received_msg":man_msg_back,
+                                 "wrong_bits": wrong_man}
         }
         errors["SNR_"+str(snr)] = data
         snr = snr + 1
 
-    with open(MSG_ERRORS_FILE, "w") as write_file:
-        json.dump(errors, write_file,indent=4)
+    if save_json == True:
+        with open(MSG_ERRORS_FILE, "w", encoding='utf8') as write_file:
+            json.dump(errors, write_file, indent=4, ensure_ascii=False)
 
     print(errors)
     

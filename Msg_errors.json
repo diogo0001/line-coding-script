@@ -1,62 +1,153 @@
 {
+    "Original message": "Hello! Lets check how many wrong characters will be received in this message",
     "SNR_1": {
-        "BipolarNRZ_error": 77,
-        "Manchester_error": 84
+        "BipolarNRZ_errors": {
+            "Received_msg": "@clDoñ Letq%axis#Ayo70iabù(wro~c@e(a\u0017\u0001aõe:s ÷Iä}$bu2b'#5átah ën`t+iq`}m3qcçe",
+            "wrong_bits": 84
+        },
+        "Manchester_errors": {
+            "Received_msg": "H%lko#¢L'tr\u0010çhõcë lu÷ m\"nù$vrol``Cèírñr\u0014ess ³ihl`£e¨rÅceIve.1)o(vxéz`}e#sqge",
+            "wrong_bits": 77
+        }
     },
     "SNR_2": {
-        "BipolarNRZ_error": 52,
-        "Manchester_error": 61
+        "BipolarNRZ_errors": {
+            "Received_msg": "janl,) L-tõ$CjEgk l&w mmn\u0019@gr+îg!cl!RagteRs\u0000wyll jm Båcehved(in Thic ldÓSqcå",
+            "wrong_bits": 59
+        },
+        "Manchester_errors": {
+            "Received_msg": "Hvllç# \\ets klmãk0@ow$manm srolu á|f2aC|dzs\"shll D4reãuhred a. tiis)aç{sEGa",
+            "wrong_bits": 62
+        }
     },
     "SNR_3": {
-        "BipolarNRZ_error": 47,
-        "Manchester_error": 50
+        "BipolarNRZ_errors": {
+            "Received_msg": "JEnno¡Lets cjmcK ho?pman!$orong CàaR`Auers(wilh ce\u0018reãeir%d )f\u0000thism`sóagå",
+            "wrong_bits": 47
+        },
+        "Manchester_errors": {
+            "Received_msg": "Èeìdo! Dõñ ãhå#k hïg(åiNy Wrong$cèara³tdss wilD\u0000\"á 2ecåm6åt0yî`thks }e33Age",
+            "wrong_bits": 51
+        }
     },
     "SNR_4": {
-        "BipolarNRZ_error": 35,
-        "Manchester_error": 36
+        "BipolarNRZ_errors": {
+            "Received_msg": "Henlo! LÄds$kh%ck jnw iajy sronc`a`aráctep3 waml be recemved yn thÉs!mcsSage",
+            "wrong_bits": 30
+        },
+        "Manchester_errors": {
+            "Received_msg": "Hi|ìo\u0003\u0000Lets`check how\u0000majy wconc C(aZaktubshWihd ce r%c%kved )n this }essége",
+            "wrong_bits": 34
+        }
     },
     "SNR_5": {
-        "BipolarNRZ_error": 22,
-        "Manchester_error": 18
+        "BipolarNRZ_errors": {
+            "Received_msg": "Iello! Mets cxeck how iaf9 wrong characterv\u0000wiLl bá$veceived in uèkó m¡çrage",
+            "wrong_bits": 25
+        },
+        "Manchester_errors": {
+            "Received_msg": "Henlo! Ldts kheck how }qny rïng`chAract%rs _ill be öeceéveä\"in tèis`mesqage",
+            "wrong_bits": 22
+        }
     },
     "SNR_6": {
-        "BipolarNRZ_error": 11,
-        "Manchester_error": 10
+        "BipolarNRZ_errors": {
+            "Received_msg": "Hdllo!\u0000Lets check how íqnY wrong`Charakters will be beb-iv%D`an thiw`mesqace",
+            "wrong_bits": 20
+        },
+        "Manchester_errors": {
+            "Received_msg": "Hellg! Letscheck how liny0Wrofg chcractåps will âe reãemreä i~ tHir messAee",
+            "wrong_bits": 22
+        }
     },
     "SNR_7": {
-        "BipolarNRZ_error": 7,
-        "Manchester_error": 9
+        "BipolarNRZ_errors": {
+            "Received_msg": "Helho!!Lets che#k hOw many wsong\"sharcctezs willabe recmived in thks masrAge",
+            "wrong_bits": 16
+        },
+        "Manchester_errors": {
+            "Received_msg": "Hello! Lets`cHeck hog many WrOng charqcters!will be received in this messege",
+            "wrong_bits": 8
+        }
     },
     "SNR_8": {
-        "BipolarNRZ_error": 4,
-        "Manchester_error": 2
+        "BipolarNRZ_errors": {
+            "Received_msg": "Hello! Lets check how many wrong charactebs wil, be received in 4his message",
+            "wrong_bits": 3
+        },
+        "Manchester_errors": {
+            "Received_msg": "Hello! Lets check how many wrong chcracters wall be received\u0000in this me{óage",
+            "wrong_bits": 5
+        }
     },
     "SNR_9": {
-        "BipolarNRZ_error": 1,
-        "Manchester_error": 1
+        "BipolarNRZ_errors": {
+            "Received_msg": "Hello! Lets check how many wrong characters will be received in this message",
+            "wrong_bits": 0
+        },
+        "Manchester_errors": {
+            "Received_msg": "Hello! Lets check how many wrong characters will be received én0this message",
+            "wrong_bits": 2
+        }
     },
     "SNR_10": {
-        "BipolarNRZ_error": 0,
-        "Manchester_error": 1
+        "BipolarNRZ_errors": {
+            "Received_msg": "Hello! Lets check how many wrong characters will be received in this message",
+            "wrong_bits": 0
+        },
+        "Manchester_errors": {
+            "Received_msg": "Hello! Lets check how many wrong characters will be received in this message",
+            "wrong_bits": 0
+        }
     },
     "SNR_11": {
-        "BipolarNRZ_error": 0,
-        "Manchester_error": 0
+        "BipolarNRZ_errors": {
+            "Received_msg": "Hello! Lets check how many wrnng characters will be received in this message",
+            "wrong_bits": 1
+        },
+        "Manchester_errors": {
+            "Received_msg": "Hello! Lets check how many wrong characters will be received in this message",
+            "wrong_bits": 0
+        }
     },
     "SNR_12": {
-        "BipolarNRZ_error": 0,
-        "Manchester_error": 0
+        "BipolarNRZ_errors": {
+            "Received_msg": "Hello! Lets check how many wrong characters will be received in this message",
+            "wrong_bits": 0
+        },
+        "Manchester_errors": {
+            "Received_msg": "Hello! Lets check how many wrong characters will be received in this message",
+            "wrong_bits": 0
+        }
     },
     "SNR_13": {
-        "BipolarNRZ_error": 0,
-        "Manchester_error": 0
+        "BipolarNRZ_errors": {
+            "Received_msg": "Hello! Lets check how many wrong characters will be received in this message",
+            "wrong_bits": 0
+        },
+        "Manchester_errors": {
+            "Received_msg": "Hello! Lets check how many wrong characters will be received in this message",
+            "wrong_bits": 0
+        }
     },
     "SNR_14": {
-        "BipolarNRZ_error": 0,
-        "Manchester_error": 0
+        "BipolarNRZ_errors": {
+            "Received_msg": "Hello! Lets check how many wrong characters will be received in this message",
+            "wrong_bits": 0
+        },
+        "Manchester_errors": {
+            "Received_msg": "Hello! Lets check how many wrong characters will be received in this message",
+            "wrong_bits": 0
+        }
     },
     "SNR_15": {
-        "BipolarNRZ_error": 0,
-        "Manchester_error": 0
+        "BipolarNRZ_errors": {
+            "Received_msg": "Hello! Lets check how many wrong characters will be received in this message",
+            "wrong_bits": 0
+        },
+        "Manchester_errors": {
+            "Received_msg": "Hello! Lets check how many wrong characters will be received in this message",
+            "wrong_bits": 0
+        }
     }
 }
