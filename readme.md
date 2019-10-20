@@ -19,7 +19,7 @@ Primeiramente, será feito a implementação das funções e os gráficos das co
 BipolarRZ, BipolarNRZ, PolarQuaternárioNRZ, NRZ-S, Manchester, 2BQ1,HDB3. Será comparada a taxa de transmissão
 de bits em de cada uma.
 
-### [Parte III](https://github.com/diogo0001/line-coding-script/blob/master/Parte_2.md)
+### [Parte II](https://github.com/diogo0001/line-coding-script/blob/master/Parte_2.md)
 
 Posteriormente, será adicionado ruído ao sinal (variando o SNR de 1 a 45) e atenuação, para simular um ambiente real.
 Será feita a decodificação do sinal, diretamente e utilizando um filtro PB, comparando o sinal obtido com o enviado,
