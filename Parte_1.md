@@ -1,6 +1,6 @@
 # Script para testes de codificações de linha
 
-## Autor: Diogo Tavares
+### Autor: Diogo Tavares
 
 ## Github: https://github.com/diogo0001/line-coding-script
 
@@ -10,8 +10,6 @@
 - numpy
 - matplotlib
 - scipy
-
-Executar o arquivo lineCodeScript.py.
 
 # Parte I - Comparação da taxa de bits por codificação
 
